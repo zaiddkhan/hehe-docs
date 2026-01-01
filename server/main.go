@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 
 	"github.com/gorilla/websocket"
@@ -39,8 +40,13 @@ func main() {
 	http.HandleFunc("/webhook/delete", handleWebhookDelete)
 	http.HandleFunc("/webhook/snapshot", handleWebhookSnapshot)
 
-	log.Println("Server running on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Println("Server running on :" + port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
 func handleWS(w http.ResponseWriter,r *http.Request) {
