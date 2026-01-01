@@ -59,7 +59,7 @@ export default function Editor() {
   useEffect(() => {
     if (!siteId) return;
 
-    const ws = new WebSocket("ws://localhost:8080/ws");
+    const ws = new WebSocket("wss://hehe-docs.onrender.com/ws");
     wsRef.current = ws;
 
     ws.onopen = () => {
